@@ -1,32 +1,30 @@
-import 'package:ecommercee/size_config.dart';
-import 'package:flutter/material.dart';
+/* Saving All Constant Values */
 
-// Gradient list
+import 'package:flutter/material.dart';
+import 'package:ecommercee/size_config.dart';
+
+const kPrimaryColor = Color.fromARGB(255, 39, 97, 65);
+const kPrimaryLightColor = Color(0xffe3f2fd);
 const kPrimaryGradientColor = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
   colors: [
-    Color(0xffffa53e),
-    Color(0xffff7643),
-  ],
+      Color(0xff6fbaff), // A lighter and brighter blue
+      Color(0xff357ab7), // A slightly darker blue for contrast
+    ]
 );
 
-// Color Variables
-const kPrimaryColor = Color(0xffff7643);
-const kPrimaryLightColor = Color(0xffffecdf);
 const kSecondaryColor = Color(0xff979797);
 const kTextColor = Color(0xff757575);
-const kBackgroundColor = Color(0xffF2F2F2);
-const kSocialMediaBackgroundColor = Color(0xFFF5F6F9);
-final TextStyle headingTextStyle = TextStyle(
-  fontSize: getProportionateScreenWidth(28),
+Color inActiveIconColor = const Color(0xFFB6B6B6);
+const kAnimationDuration = Duration(milliseconds: 200);
+
+final headingStyle = TextStyle(
+  fontSize: getPropScreenWidth(28),
   fontWeight: FontWeight.bold,
   color: Colors.black,
   height: 1.5,
 );
-
-// Animation Duration
-const kAnimationDuration = Duration(milliseconds: 200);
 
 // Form Error
 final RegExp emailValidatorRegExp =
@@ -36,10 +34,37 @@ const String kInvalidEmailError = "Please Enter Valid Email";
 const String kPassNullError = "Please Enter your password";
 const String kShortPassError = "Password is too short";
 const String kMatchPassError = "Passwords don't match";
-const String kConfirmPassNullError = 'Please Re-Enter your password';
 
-const String kNameNullError = "Please Enter your Name";
-const String kPhoneNumberNullError = "Please Enter your Phone Number";
-const String kAddressNullError = "Please Enter your Address";
+// Complete Profile
+const String kNameNullError = "Please Enter your name";
+const String kPhoneNumberNullError = "Please enter your phone number";
+const String kAddressNullError = "Please enter address";
+
+// OTP style
+
+final otpDecoration = InputDecoration(
+                    contentPadding: EdgeInsets.symmetric(
+                      vertical: getPropScreenHeight(15),
+                    ),
+                    enabledBorder: otpOutlineInputBorder(),
+                    focusedBorder: otpOutlineInputBorder(),
+                    border: otpOutlineInputBorder(),
+                  );
+
+OutlineInputBorder otpOutlineInputBorder() {
+  return OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: const BorderSide(color: kTextColor),
+                  );
+}
+
+
+const defaultDuration = Duration(milliseconds: 250);
+
+TextStyle SeeMoreStyle = TextStyle(
+  fontSize: getPropScreenWidth(16),
+                        fontWeight: FontWeight.bold,
+                        color: kPrimaryColor
+);
 
 

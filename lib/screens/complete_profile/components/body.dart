@@ -1,6 +1,7 @@
-import 'package:ecommercee/constant.dart';
-import 'package:ecommercee/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:ecommercee/constant.dart';
+import 'package:ecommercee/screens/complete_profile/components/complete_profile_form.dart';
+import 'package:ecommercee/size_config.dart';
 
 class Body extends StatelessWidget {
   const Body({super.key});
@@ -10,26 +11,32 @@ class Body extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 
-        getProportionateScreenWidth(20)),
+        padding: EdgeInsets.symmetric(horizontal: getPropScreenWidth(20)),
         child: SingleChildScrollView(
           child: Column(
             children: [
-               Text(
-                    'Register Account',
-                    style: headingTextStyle,
-                  ),
-                  const Text(
-                    'Complete your details or continue \nwith social media',
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(
-                    height: SizeConfig.screenHeight * 0.07,
-                  ),
+              SizedBox(height: SizeConfig.screenHeight * 0.03),
+              Text(
+                "Complete Profile",
+                style: headingStyle,
+              ),
+              const Text(
+                "Complete your profile data",
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: SizeConfig.screenHeight * 0.06),
+              const CompleteProfileForm(),
+              SizedBox(height: SizeConfig.screenHeight * 0.03),
+              const Text(
+                "By continuing your confirm that you agree \nwith our Term and Condition",
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: SizeConfig.screenHeight * 0.03),
             ],
           ),
         ),
-      ),
+      )
     );
   }
 }
+

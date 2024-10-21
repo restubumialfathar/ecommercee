@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:ecommercee/screens/login_success/components/body.dart';
 
 class LoginSuccessScreen extends StatelessWidget {
-  static const routeName = '/login_success';
-
+  static String routeName = "/login_success";
   const LoginSuccessScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Login Success'),
+        centerTitle: true,
+        leading: const SizedBox(),
+      ),
       body: Body(),
     );
   }

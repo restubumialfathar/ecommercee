@@ -1,14 +1,13 @@
-import 'package:ecommercee/screens/sign_up/body.dart';
 import 'package:flutter/material.dart';
+import 'package:ecommercee/screens/sign_up/components/body.dart';
 
 class SignUpScreen extends StatelessWidget {
-  static const routeName = '/sign_up';
-
+  static String routeName = "/sign_up";
   const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Body(),
     );
   }

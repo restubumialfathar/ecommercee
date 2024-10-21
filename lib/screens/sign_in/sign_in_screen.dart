@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ecommercee/screens/sign_in/body.dart';
+import 'package:ecommercee/screens/sign_in/components/body.dart';
 
 class SignInScreen extends StatelessWidget {
   static String routeName = "/sign_in";
@@ -7,7 +7,7 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Body(),
     );
   }

@@ -1,7 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:ecommercee/routes.dart';
 import 'package:ecommercee/screens/splash/splash_screen.dart';
 import 'package:ecommercee/theme.dart';
-import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MainApp());
@@ -13,8 +13,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: themeData(),
       debugShowCheckedModeBanner: false,
+      theme: themeData(),
       initialRoute: SplashScreen.routeName,
       routes: routes,
     );

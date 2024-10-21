@@ -1,6 +1,7 @@
-import 'package:ecommercee/components/my_default_button.dart';
-import 'package:ecommercee/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:ecommercee/components/my_default_button.dart';
+import 'package:ecommercee/screens/home/home_screen.dart';
+import 'package:ecommercee/size_config.dart';
 
 class Body extends StatelessWidget {
   const Body({super.key});
@@ -12,26 +13,27 @@ class Body extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(height: SizeConfig.screenHeight * 0.04),
-          Image.asset('assets/images/success.png'),
-          SizedBox(height: SizeConfig.screenHeight * 0.08),
+          Image.asset("assets/images/ls.png"),
+          SizedBox(height: SizeConfig.screenHeight * 0.04),
           Text(
-            'Login Success',
+            "Login Success!",
             style: TextStyle(
-              fontSize: getProportionateScreenWidth(30),
+              fontSize: getPropScreenWidth(30),
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: Colors.black
             ),
           ),
           const Spacer(),
           SizedBox(
             width: SizeConfig.screenWidth * 0.6,
             child: MyDefaultButton(
-                text: 'Back to Home',
-                onPressed: () {
-                  Navigator.pop(context);
-                }),
+              text: "Back to Home",
+              press: () {
+                Navigator.pushNamed(context, HomeScreen.routeName);
+              },
+            ),
           ),
-          const Spacer(),
+          const Spacer()
         ],
       ),
     );
