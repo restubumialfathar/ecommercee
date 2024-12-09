@@ -1,8 +1,7 @@
-import 'package:ecommercee/components/costum_navigation_bar.dart';
-import 'package:ecommercee/constant.dart';
-import 'package:ecommercee/enums.dart';
-import 'package:ecommercee/screens/profile/components/body.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:ecommercee/screens/profile/components/body.dart';
+import 'package:ecommercee/state_managements/theme_provider.dart';
 
 class ProfileScreen extends StatelessWidget {
   static String routeName = "/profile";
@@ -11,27 +10,33 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: appBar(context),
-      body: Body(),
-      bottomNavigationBar: CostumNavigationBar(menu: MenuState.profile),
+      appBar: appBar(context),
+      body: const Body(),
     );
   }
 }
 
 AppBar appBar(BuildContext context) {
-    return AppBar(
-      leading: IconButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        icon: const Icon(Icons.arrow_back_ios_new_rounded),
-      ),
-      title:
-          const Text(
-            "Profile",
-            style: TextStyle(
-              color: kTextColor,
-            ),
+  return AppBar(
+    forceMaterialTransparency: true,
+    leading: Container(),
+    centerTitle: true,
+    title: Text(
+      "Profile",
+      style: Theme.of(context).textTheme.bodyLarge,
+    ),
+    actions: [
+      Consumer<ThemeProvider>(
+        builder: (context, theme, child) => IconButton(
+          icon: Icon(
+            theme.isDarkMode ? Icons.wb_sunny : Icons.nightlight_round,
+            color: Theme.of(context).iconTheme.color,
           ),
-    );
-  }
+          onPressed: () {
+            theme.toggleTheme(!theme.isDarkMode);
+          },
+        ),
+      ),
+    ],
+  );
+}

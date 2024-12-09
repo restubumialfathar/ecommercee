@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:ecommercee/components/my_default_button.dart';
 import 'package:ecommercee/constant.dart';
 import 'package:ecommercee/model/splash_data.dart';
@@ -15,8 +14,10 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  @override
   int currentPage = 0;
 
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: SizedBox(
@@ -28,10 +29,8 @@ class _BodyState extends State<Body> {
               child: PageView.builder(
                 onPageChanged: (value) {
                   setState(() {
-                    currentPage = value;  
-                  });  
-
-                  print(currentPage);
+                    currentPage = value;
+                  });
                 },
                 itemCount: splashData.length,
                 itemBuilder: (context, index) => SplashContent(
@@ -44,7 +43,7 @@ class _BodyState extends State<Body> {
               flex: 2,
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: getPropScreenWidth(20), 
+                  horizontal: getPropScreenWidth(20),
                 ),
                 child: Column(
                   children: [
@@ -54,38 +53,39 @@ class _BodyState extends State<Body> {
                       children: List.generate(
                         splashData.length,
                         (index) => dotBuilder(index: index),
-                      )
+                      ),
                     ),
                     const Spacer(
                       flex: 3,
                     ),
                     MyDefaultButton(
-                      text: "Continue", press: () {
-                        Navigator.pushReplacementNamed(context, SignInScreen.routeName);
+                      text: "Continue",
+                      press: () {
+                        Navigator.pushReplacementNamed(
+                            context, SignInScreen.routeName);
                       },
                     ),
-                    Spacer(),
+                    const Spacer(),
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
     );
   }
 
-AnimatedContainer dotBuilder({required int index}) {
+  AnimatedContainer dotBuilder({required int index}) {
     return AnimatedContainer(
       duration: kAnimationDuration,
       margin: const EdgeInsets.only(right: 5),
       height: 6,
       width: currentPage == index ? 20 : 6,
       decoration: BoxDecoration(
-        color: currentPage == index ? kPrimaryColor : Color(0xffd8d8d8),
+        color: currentPage == index ? kPrimaryColor : const Color(0xffd8d8d8),
         borderRadius: BorderRadius.circular(3),
       ),
     );
   }
 }
-

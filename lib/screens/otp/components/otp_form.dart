@@ -17,7 +17,7 @@ class OtpForm extends StatefulWidget {
 class _OtpFormState extends State<OtpForm> {
   final _formKey = GlobalKey<FormState>();
 
-  final List<String?> otp = List.filled(4, null); 
+  final List<String?> otp = List.filled(4, null);
 
   @override
   Widget build(BuildContext context) {
@@ -27,23 +27,27 @@ class _OtpFormState extends State<OtpForm> {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: List.generate(otp.length,
-                (index) => OtpField(index: index, otp: otp)),
+            children: List.generate(
+              otp.length,
+              (index) => OtpField(index: index, otp: otp),
+            ),
           ),
-          SizedBox(height: SizeConfig.screenHeight * 0.15),
+          SizedBox(
+            height: SizeConfig.screenHeight * 0.15,
+          ),
           MyDefaultButton(
-            text: "Continue", 
+            text: "Continue",
             press: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
-                print("${otp.join()}");
+                print(otp.join());
               }
 
               if (otp.isNotEmpty) {
                 Navigator.pushNamed(context, HomeScreen.routeName);
               }
-            }
-          )
+            },
+          ),
         ],
       ),
     );
@@ -52,7 +56,9 @@ class _OtpFormState extends State<OtpForm> {
 
 class OtpField extends StatefulWidget {
   const OtpField({
-    super.key, required this.index, required this.otp,
+    super.key,
+    required this.index,
+    required this.otp,
   });
 
   final int index;
@@ -68,17 +74,17 @@ class _OtpFieldState extends State<OtpField> {
     return SizedBox(
       width: getPropScreenWidth(60),
       child: TextFormField(
-        onSaved: (newValue) => setState(() => widget.otp[widget.index] = newValue),
+        onSaved: (newValue) =>
+            setState(() => widget.otp[widget.index] = newValue),
         onChanged: (value) {
-            if (value.isEmpty) {
-            widget.index > 0
-                ? FocusScope.of(context).previousFocus()
-                : FocusScope.of(context)
-                    .requestFocus(FocusScope.of(context).focusedChild);
+          if (value.isEmpty && widget.index > 0) {
+            FocusScope.of(context).previousFocus();
+          } else if (value.isEmpty && widget.index == 0) {
+            FocusScope.of(context).requestFocus();
+          } else if (widget.index == widget.otp.length - 1) {
+            FocusScope.of(context).unfocus();
           } else {
-            widget.index == widget.otp.length - 1
-                ? FocusScope.of(context).unfocus()
-                : FocusScope.of(context).nextFocus();
+            FocusScope.of(context).nextFocus();
           }
         },
         validator: (value) {
@@ -91,10 +97,12 @@ class _OtpFieldState extends State<OtpField> {
         obscureText: true,
         maxLength: 1,
         maxLengthEnforcement: MaxLengthEnforcement.enforced,
-        buildCounter: (context, {required currentLength, required isFocused, required maxLength}) {
-          return null;
-        },
-        style: TextStyle(fontSize: getPropScreenWidth(24)),
+        buildCounter: (context,
+                {required currentLength,
+                required isFocused,
+                required maxLength}) =>
+            null,
+        style: const TextStyle(fontSize: 24),
         textAlign: TextAlign.center,
         decoration: otpDecoration,
       ),

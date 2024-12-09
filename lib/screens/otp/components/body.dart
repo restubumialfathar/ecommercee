@@ -15,25 +15,28 @@ class Body extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: getPropScreenWidth(20)),
           child: Column(
             children: [
-                SizedBox(height: SizeConfig.screenHeight * 0.03),
-                Text(
-                  "OTP Verification",
-                  style: headingStyle,
-                ),
-                const Text(
-                  "We sent your code to +62 123 321 ***",
-                  textAlign: TextAlign.center,
-                ),
-                timer(),
-                SizedBox(height: SizeConfig.screenHeight * 0.15),
-                const OtpForm(),
-              ],
+              SizedBox(
+                height: SizeConfig.screenHeight * 0.03,
+              ),
+              Text(
+                "OTP Verification",
+                style: headingStyle,
+              ),
+              const Text(
+                "We send your code to +62 8*** *** 20",
+                textAlign: TextAlign.center,
+              ),
+              timer(),
+              SizedBox(
+                height: SizeConfig.screenHeight * 0.15,
+              ),
+              const OtpForm()
+            ],
           ),
-        )
+        ),
       ),
     );
   }
-
 
   Row timer() {
     return Row(
@@ -44,13 +47,15 @@ class Body extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         TweenAnimationBuilder(
-          tween: Tween(begin: 60.0, end: 0.0),
+          tween: Tween(begin: 60.0, end: 0),
           duration: const Duration(seconds: 60),
           builder: (context, value, child) {
             return Text(
               "00:${value.toInt()}",
               style: const TextStyle(
-                  fontWeight: FontWeight.bold, color: Colors.red),
+                fontWeight: FontWeight.bold,
+                color: kPrimaryColor,
+              ),
             );
           },
           onEnd: () {},
@@ -59,4 +64,3 @@ class Body extends StatelessWidget {
     );
   }
 }
-

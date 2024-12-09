@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:ecommercee/constant.dart';
-import 'package:ecommercee/size_config.dart';
+
+import '../size_config.dart';
 
 class MyDefaultButton extends StatelessWidget {
   const MyDefaultButton({
-    super.key, required this.text, required this.press,
+    super.key,
+    required this.text,
+    required this.press,
   });
 
   final String text;
@@ -16,17 +19,20 @@ class MyDefaultButton extends StatelessWidget {
       onPressed: press,
       style: ElevatedButton.styleFrom(
         backgroundColor: kPrimaryColor,
-        minimumSize: Size(double.infinity, getPropScreenHeight(56)),
+        minimumSize: Size(
+          double.infinity,
+          getPropScreenHeight(56),
+        ),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20)
+          borderRadius: BorderRadius.circular(20),
         ),
       ),
       child: Text(
-        text, 
+        text,
         style: TextStyle(
           color: Colors.white,
           fontSize: getPropScreenWidth(18),
-        )
+        ),
       ),
     );
   }

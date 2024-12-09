@@ -9,56 +9,62 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SizedBox(
-        width: double.infinity,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: getPropScreenWidth(20)),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: SizeConfig.screenHeight * 0.04),
-                Text(
-                  "Register Account",
-                  style: headingStyle,
-                ),
-                const Text(
-                  "Complete your details or continue \nwith social media",
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: SizeConfig.screenHeight * 0.06),
-                const SignUpForm(),
-                SizedBox(height: SizeConfig.screenHeight * 0.06),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SocialMediaIcon(
-                        icon: "assets/icons/google-icon.svg",
-                        press: () {},
-                      ),
-                      SocialMediaIcon(
-                        icon: "assets/icons/facebook-2.svg",
-                        press: () {},
-                      ),
-                      SocialMediaIcon(
-                        icon: "assets/icons/twitter.svg",
-                        press: () {},
-                      ),
-                    ],
+    return SizedBox(
+      width: double.infinity,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: getPropScreenWidth(20)),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: SizeConfig.screenHeight * 0.03,
+              ),
+              Text(
+                "Register Account",
+                style: headingStyle,
+              ),
+              const Text(
+                "Complete your details or continue \nwith social media",
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: SizeConfig.screenHeight * 0.06,
+              ),
+              const SignUpForm(),
+              SizedBox(
+                height: SizeConfig.screenHeight * 0.06,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SocialMediaIcon(
+                    icon: "assets/icons/google-icon.svg",
+                    press: () {},
                   ),
-                SizedBox(height: SizeConfig.screenHeight * 0.03),
-                const Text(
-                  "By continuing your confirm that you agree \nwith our Term and Condition",
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: SizeConfig.screenHeight * 0.03),
-              ]
-            ),
+                  SocialMediaIcon(
+                    icon: "assets/icons/facebook-2.svg",
+                    press: () {},
+                  ),
+                  SocialMediaIcon(
+                    icon: "assets/icons/twitter.svg",
+                    press: () {},
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: SizeConfig.screenHeight * 0.03,
+              ),
+              const Text(
+                "By continuing your confirm that you agree \nwith our Term and Condition",
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: SizeConfig.screenHeight * 0.03,
+              ),
+            ],
           ),
-        )
+        ),
       ),
     );
   }
 }
-
-

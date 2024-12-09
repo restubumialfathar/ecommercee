@@ -1,87 +1,98 @@
 import 'package:flutter/material.dart';
-import 'package:ecommercee/components/custom_suffix_icon.dart';
+import 'package:provider/provider.dart';
+import 'package:ecommercee/components/costum_suffix_icon.dart';
 import 'package:ecommercee/components/error_form.dart';
 import 'package:ecommercee/components/my_default_button.dart';
 import 'package:ecommercee/constant.dart';
 import 'package:ecommercee/screens/forgot_password/forgot_password_screen.dart';
 import 'package:ecommercee/screens/login_success/login_success_screen.dart';
 import 'package:ecommercee/size_config.dart';
+import 'package:ecommercee/state_managements/auth_provider.dart';
 
 class SignInForm extends StatefulWidget {
-  const SignInForm({super.key, required Null Function() onSignInSuccess});
+  const SignInForm({super.key});
 
   @override
   State<SignInForm> createState() => _SignInFormState();
 }
 
 class _SignInFormState extends State<SignInForm> {
-  final _frontKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   String? email;
   String? password;
   final List<String> errors = [];
 
   bool remember = false;
+
+  final TextEditingController _textEditingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Form(
-        key: _frontKey,
-        child: Column(
-          children: [
-            // email field
-            emailFormField(),
-            SizedBox(height: getPropScreenHeight(30)),
-            // password field
-            passwordFormField(),
-            SizedBox(height: getPropScreenHeight(30)),
-            rememberAndForgot(),
-            SizedBox(height: getPropScreenHeight(20)),
-            ErrorForm(errors: errors),
-            SizedBox(height: getPropScreenHeight(20)),
-            MyDefaultButton(
-              text: "Sign In",
-              press: () {
-                if (_frontKey.currentState!.validate()) {
-                  _frontKey.currentState!.save();
-                }
+      key: _formKey,
+      child: Column(
+        children: [
+          emailFormFiled(),
+          SizedBox(height: getPropScreenHeight(30)),
+          passwordFormFiled(),
+          SizedBox(height: getPropScreenHeight(30)),
+          rememberAndForgot(),
+          SizedBox(height: getPropScreenHeight(20)),
+          ErrorForm(errors: errors),
+          SizedBox(height: getPropScreenHeight(20)),
+          MyDefaultButton(
+            text: "Sign In",
+            press: () {
+              if (_formKey.currentState!.validate()) {
+                _formKey.currentState!.save();
+              }
 
-                if (errors.isEmpty) {
-                  Navigator.pushNamed(context, LoginSuccessScreen.routeName);
-                }
-              },
-            )
-          ],
-        ));
+              if (errors.isEmpty) {
+                Provider.of<AuthProvider>(context, listen: false).setAuth(true);
+                Provider.of<AuthProvider>(context, listen: false)
+                    .saveEmailUser(_textEditingController.text);
+                Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    LoginSuccessScreen.routeName,
+                    (Route<dynamic> route) => false);
+              }
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   Row rememberAndForgot() {
     return Row(
-                children: [
-                  Checkbox(
-                    value: remember,
-                    onChanged: (value) {
-                      setState(() {
-                        remember = value!;
-                      });
-                    },
-                    activeColor: kPrimaryColor,
-                  ),
-                  const Text("Remember Me"),
-                  const Spacer(),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, ForgotPasswordScreen.routeName);
-                    },
-                    child: const Text(
-                      "Forgot Password", style: TextStyle(
-                        decoration: TextDecoration.underline
-                      ),
-                    ),
-                  ),
-                ],
-              );
+      children: [
+        Checkbox(
+          value: remember,
+          onChanged: (value) {
+            setState(() {
+              remember = value!;
+            });
+          },
+          activeColor: kPrimaryColor,
+        ),
+        const Text("Remember me"),
+        const Spacer(),
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, ForgotPasswordScreen.routeName);
+          },
+          child: const Text(
+            "Forgot Password",
+            style: TextStyle(
+              decoration: TextDecoration.underline,
+            ),
+          ),
+        )
+      ],
+    );
   }
 
-  TextFormField passwordFormField() {
+  TextFormField passwordFormFiled() {
     return TextFormField(
       onChanged: (value) {
         if (value.isNotEmpty && errors.contains(kPassNullError)) {
@@ -101,33 +112,39 @@ class _SignInFormState extends State<SignInForm> {
             errors.add(kPassNullError);
           });
           return "";
-        }  else if (value.length < 8 && (!errors.contains(kShortPassError) && !errors.contains(kPassNullError))) {
+        } else if (value.length < 8 &&
+            (!errors.contains(kPassNullError) &&
+                !errors.contains(kShortPassError))) {
           setState(() {
             errors.add(kShortPassError);
           });
           return "";
         }
+        return null;
       },
       obscureText: true,
       decoration: const InputDecoration(
-          labelText: "Password",
-          hintText: "Your password here",
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-          suffixIcon: CustomSuffixIcon(
-            icon: "assets/icons/Lock.svg",
-          )),
+        labelText: "Password",
+        hintText: "Enter your password",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CostomSuffixIcon(
+          icon: "assets/icons/Lock.svg",
+        ),
+      ),
     );
   }
 
-  TextFormField emailFormField() {
+  TextFormField emailFormFiled() {
     return TextFormField(
+      controller: _textEditingController,
       onSaved: (newValue) => email = newValue,
       onChanged: (value) {
-        if (value!.isNotEmpty && errors.contains(kEmailNullError)) {
+        if (value.isNotEmpty && errors.contains(kEmailNullError)) {
           setState(() {
             errors.remove(kEmailNullError);
           });
-        } else if (emailValidatorRegExp.hasMatch(value) && errors.contains(kInvalidEmailError)) {
+        } else if (emailValidatorRegExp.hasMatch(value) &&
+            errors.contains(kInvalidEmailError)) {
           setState(() {
             errors.remove(kInvalidEmailError);
           });
@@ -140,7 +157,9 @@ class _SignInFormState extends State<SignInForm> {
             errors.add(kEmailNullError);
           });
           return "";
-        } else if (!emailValidatorRegExp.hasMatch(value) && (!errors.contains(kPassNullError) && !errors.contains(kInvalidEmailError))) {
+        } else if (!emailValidatorRegExp.hasMatch(value) &&
+            (!errors.contains(kPassNullError) &&
+                !errors.contains(kInvalidEmailError))) {
           setState(() {
             errors.add(kInvalidEmailError);
           });
@@ -150,12 +169,13 @@ class _SignInFormState extends State<SignInForm> {
       },
       keyboardType: TextInputType.emailAddress,
       decoration: const InputDecoration(
-          labelText: "Email",
-          hintText: "Your email here",
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-          suffixIcon: CustomSuffixIcon(
-            icon: "assets/icons/Mail.svg",
-          )),
+        labelText: "Email",
+        hintText: "Enter your email",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CostomSuffixIcon(
+          icon: "assets/icons/Mail.svg",
+        ),
+      ),
     );
   }
 }

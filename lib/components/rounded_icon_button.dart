@@ -34,10 +34,14 @@ class RoundedIconBtn extends StatelessWidget {
         style: TextButton.styleFrom(
           padding: EdgeInsets.zero,
           backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
         ),
         onPressed: press,
-        child: Icon(icon),
+        child: Icon(
+          icon,
+          color: Theme.of(context).primaryColor,
+        ),
       ),
     );
   }

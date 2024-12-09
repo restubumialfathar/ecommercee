@@ -15,7 +15,9 @@ class Body extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: SizeConfig.screenHeight * 0.03),
+              SizedBox(
+                height: SizeConfig.screenHeight * 0.03,
+              ),
               Text(
                 "Complete Profile",
                 style: headingStyle,
@@ -24,19 +26,24 @@ class Body extends StatelessWidget {
                 "Complete your profile data",
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: SizeConfig.screenHeight * 0.06),
+              SizedBox(
+                height: SizeConfig.screenHeight * 0.06,
+              ),
               const CompleteProfileForm(),
-              SizedBox(height: SizeConfig.screenHeight * 0.03),
+              SizedBox(
+                height: SizeConfig.screenHeight * 0.03,
+              ),
               const Text(
                 "By continuing your confirm that you agree \nwith our Term and Condition",
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: SizeConfig.screenHeight * 0.03),
+              SizedBox(
+                height: SizeConfig.screenHeight * 0.03,
+              ),
             ],
           ),
         ),
-      )
+      ),
     );
   }
 }
-

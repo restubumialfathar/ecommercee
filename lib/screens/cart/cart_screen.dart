@@ -1,7 +1,9 @@
-import 'package:ecommercee/model/cart.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:ecommercee/screens/cart/components/body.dart';
 import 'package:ecommercee/screens/cart/components/cart_bottom_navigation.dart';
-import 'package:flutter/material.dart';
+import 'package:ecommercee/state_managements/cart_provider.dart';
 
 class CartScreen extends StatelessWidget {
   static String routeName = "/cart";
@@ -19,27 +21,26 @@ class CartScreen extends StatelessWidget {
   AppBar appBar(BuildContext context) {
     return AppBar(
       leading: IconButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        icon: const Icon(Icons.arrow_back_ios_new_rounded),
-      ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon:  Icon(Icons.arrow_back_ios_new_rounded,
+           color: Theme.of(context).iconTheme.color,
+          )),
+      centerTitle: true,
       title: Column(
         children: [
-          const Text(
-            "Your cart",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-          ),
           Text(
-            "${listCart.length} items",
-            style: Theme.of(context).textTheme.bodyMedium,
-          )
+            "Your Cart",
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          Consumer<CartProvider>(
+            builder: (context, cart, child) => 
+            Text("${cart.cartItems.length} items",
+                style: Theme.of(context).textTheme.bodySmall),
+          ),
         ],
       ),
     );
   }
 }
-

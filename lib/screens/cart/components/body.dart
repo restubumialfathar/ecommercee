@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:ecommercee/model/cart.dart';
 import 'package:ecommercee/screens/cart/components/item_cart.dart';
 import 'package:ecommercee/size_config.dart';
-import 'package:flutter/material.dart';
+import 'package:ecommercee/state_managements/cart_provider.dart';
 
 class Body extends StatefulWidget {
   const Body({super.key});
@@ -13,40 +15,44 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: listCart.length,
-        itemBuilder: (context, index) {
-          final Cart cart = listCart[index];
-          return Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: getPropScreenWidth(20),
-              vertical: getPropScreenWidth(10),
-            ),
-            child: Dismissible(
+    return Consumer<CartProvider>(
+      builder: (context, cartData, child) => ListView.builder(
+          itemCount: cartData.cartItems.length,
+          itemBuilder: (context, index) {
+            final Cart cart = cartData.cartItems[index];
+            return Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: getPropScreenWidth(20),
+                vertical: getPropScreenWidth(10),
+              ),
+              child: Dismissible(
                 key: Key(cart.product.id.toString()),
                 direction: DismissDirection.endToStart,
                 onDismissed: (direction) {
-                  setState(() {
-                    listCart.removeAt(index);
-                  });
+                  cartData.removeCartItem(cart);
                 },
                 background: Container(
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 255, 98, 87),
+                    color: Colors.red,
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Row(
                     children: [
-                      Spacer(),
+                      const Spacer(),
                       Padding(
                         padding: EdgeInsets.only(right: getPropScreenWidth(20)),
-                        child: const Icon(Icons.delete_forever_rounded, color: Colors.white,),
+                        child: const Icon(
+                          Icons.delete_outline_rounded,
+                          color: Colors.white,
+                        ),
                       ),
                     ],
                   ),
                 ),
-                child: Itemcart(cart: cart)),
-          );
-        });
+                child: ItemCart(cart: cart),
+              ),
+            );
+          }),
+    );
   }
 }

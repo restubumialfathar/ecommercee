@@ -2,14 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:ecommercee/screens/splash/components/body.dart';
 import 'package:ecommercee/size_config.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   static String routeName = "/splash";
   const SplashScreen({super.key});
 
   @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  // check if user is logged in or not
+  @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Scaffold(
+    return const Scaffold(
       body: Body(),
     );
   }
